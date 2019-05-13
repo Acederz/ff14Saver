@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ff14Saver:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ff14Saver_jar</output-path>
+    <root id="archive" name="ff14Saver.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/out/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="ff14Saver" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/fastjson-1.2.58.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -5,6 +5,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,27 +15,37 @@ public class FinalFantasy extends JFrame implements ActionListener {
 
     public FinalFantasy(){
         List<Walkthrough> list = readFile();
-        setTitle("豆芽副本指南");
+        setTitle("豆芽副本指南 by 神意之地-鼓瑟笙箫 o(￣▽￣)ｄ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100,100,500,350);
+        setBounds(100,100,500,360);
 
         JPanel contentPane=new JPanel();
         contentPane.setBorder(new EmptyBorder(5,5,5,5));
         contentPane.setLayout(null);
 
+        JLabel label2 = new JLabel("快捷查询:");
+        label2.setBounds(50,20,70,20);
+        contentPane.add(label2);
+        JTextField jTextField = new JTextField();
+        jTextField.setBounds(120,20,200,20);
+        contentPane.add(jTextField);
+        JButton jButton1 = new JButton("查询");
+        jButton1.setBounds(340,20,70,20);
+        contentPane.add(jButton1);
+
         JLabel label=new JLabel("选择副本:");
-        label.setBounds(50,20,70,20);
+        label.setBounds(50,50,70,20);
         contentPane.add(label);
         JComboBox comboBox=new JComboBox();
         list.forEach(walkthrough -> comboBox.addItem(walkthrough.getName()));
-        comboBox.setBounds(120,20,200,20);
+        comboBox.setBounds(120,50,200,20);
         contentPane.add(comboBox);
 
         JLabel label1=new JLabel("攻略:");
-        label1.setBounds(50,50,55,20);
+        label1.setBounds(50,80,55,20);
         label1.setHorizontalAlignment(SwingConstants.RIGHT);
         JTextArea jTextArea = new JTextArea();
-        jTextArea.setBounds(120,50,330,220);
+        jTextArea.setBounds(120,80,330,220);
         jTextArea.setEnabled(true);
         jTextArea.setLineWrap(true);
         jTextArea.setDisabledTextColor(Color.black);
@@ -64,6 +76,20 @@ public class FinalFantasy extends JFrame implements ActionListener {
                 jTextArea.setEnabled(false);
             }
         });
+
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.forEach(walkthrough -> {
+                    String s = jTextField.getText();
+                    if (s.equals(walkthrough.getName()) || walkthrough.getTag().contains(s)) {
+                        jTextArea.setText(walkthrough.getContent());
+                        comboBox.setSelectedItem(walkthrough.getName());
+                    }
+                });
+            }
+        });
+
 
         setContentPane(contentPane);
         setVisible(true);
